@@ -1,0 +1,42 @@
+---
+title: "Participant Data Report"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+   
+### Participant phenotype
+
+```{r}
+participant_phenotype <- read.csv("participant_phenotype.csv")
+library(knitr)
+kable(participant_phenotype)
+```
+
+### Participant genotype
+
+```{r}
+participant_genotype <- read.csv("participant_genotype.csv")
+library(knitr)
+kable(participant_genotype)
+```
+
+### Mutation statistics
+
+```{r}
+mutation_statistics <- read.csv("mutation_statistics.csv")
+library(knitr)
+kable(mutation_statistics)
+```
+### Gene mutations
+
+```{r}
+library(knitr)
+if ("gene_mutations.csv" %in% list.files()) {
+   gene_mutations <- read.csv("gene_mutations.csv")
+   kable(gene_mutations)
+} else { print("No gene was specified for detailed information.") }
+```

@@ -1,0 +1,21 @@
+name: participant-data-pipeline 
+channels:
+  - defaults
+  - conda-forge
+  - bioconda
+  - r
+  - anaconda
+dependencies:
+  - r-base
+  - r-rmarkdown
+  - r-tidyverse
+  - r-dplyr
+  - r-tidyr
+  - r-ggplot2
+  - r-cowplot
+  - r-rcolorbrewer
+  - r-ggbeeswarm
+  - r-data.table
+  - pandoc
+  - r-flexdashboard
+  - r-knitr
