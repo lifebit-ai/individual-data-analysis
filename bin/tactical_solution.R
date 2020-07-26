@@ -14,8 +14,8 @@ genotypic_file_path <- args[4]
 #args <- list()
 #id <- args[1] <- '229001'
 #gene <- args[2] <- F # or for example "SHANK3"
-#genotypic_file_path <- args[3] <- "COVID_data_synthetic.tsv"
-#phenotypic_file_path <- args[4] <- "tiering_data.tsv"
+#phenotypic_file_path <- args[3] <- "COVID_data_synthetic.tsv"
+#genotypic_file_path <- args[4] <- "tiering_data.tsv"
 #dict_file_path <- args[5] <- "dictionary.tsv"
 
 
@@ -93,10 +93,12 @@ decode_phenotypes <- function(mydata, dictionary) {
 ##### Table 1
 data <- fread(phenotypic_file_path, h=T, sep ='\t') %>%
   filter(participant_id == paste(id))
+
 #Add here convert step if needed
 
 ##### Table 2
-tier <- read.table(genotypic_file_path, h=T, sep ='\t') %>% select(-c(Key))
+tier <- read.table(genotypic_file_path, h=T, sep ='\t') %>% select(-c(key))
+
 # Output participant table
 personal_tier <- tier %>% filter(participant_id == paste(id))
 # If table is too big (>150 rows) subset to TIER1 and TIER2 only (if there are any) 
