@@ -97,7 +97,7 @@ data <- fread(phenotypic_file_path, h=T, sep ='\t') %>%
 #Add here convert step if needed
 
 ##### Table 2
-tier <- read.table(genotypic_file_path, h=T, sep ='\t') %>% select(-c(key))
+tier <- read.table(genotypic_file_path, h=T, sep ='\t', quote = "") %>% select(-c(key))
 
 # Output participant table
 personal_tier <- tier %>% filter(participant_id == paste(id))
@@ -155,10 +155,10 @@ if (gene!=F) {
 #    Output    #
 ################
 
-write.csv(file = "participant_phenotype.csv", data)
-write.csv(file = "participant_genotype.csv", personal_tier)
-write.csv(file = "mutation_statistics.csv", mutation_statistics)
-if (gene!=F) {write.csv(file = "gene_mutations.csv", gene_mutations)}
+write.csv(file = "participant_phenotype.csv", data, row.names = FALSE)
+write.csv(file = "participant_genotype.csv", personal_tier, row.names = FALSE)
+write.csv(file = "mutation_statistics.csv", mutation_statistics, row.names = FALSE)
+if (gene!=F) {write.csv(file = "gene_mutations.csv", gene_mutations, row.names = FALSE)}
 
 
 
