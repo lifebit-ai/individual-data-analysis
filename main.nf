@@ -1,11 +1,11 @@
 #!/usr/bin/env nextflow
 /*
 ========================================================================================
-                         lifebit-ai/participant-data-pipeline
+                         lifebit-ai/individual-data-analysis
 ========================================================================================
- lifebit-ai/pathway-analysis Nextflow pipeline to perfrom pathway analysis for RNASeq FASTQ files 
+ lifebit-ai/individual-data-analysis Nextflow pipeline for individual data analysis. 
  #### Homepage / Documentation
- https://github.com/lifebit-ai/pathway-analysis
+ https://github.com/lifebit-ai/individual-data-analysis
 ----------------------------------------------------------------------------------------
 */
 

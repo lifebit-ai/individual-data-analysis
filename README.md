@@ -10,14 +10,16 @@ Currently pipeline produces an rmarkdown html report (named as multiqc) with the
 
 Example command:
 ```
-nextflow run main.nf --participant_id 229001 --gene SHANK3
+nextflow run main.nf --participant_id 229001 --gene SHANK3 --phenotypic_file covid_pheno.tsv --genotypic_file gel_tiering_data.tsv.gz
 ```
 
 ## Pipeline arguments
-The `--participant_id` is only the one required argument.
+
+#### Required arguments:
+- `--participant_id` -id of an individual for who to generate a report. [default: none]
+- `--phenotypic_file` - path to a file with phenotypic cohort data. Must contain `participant_id` column. [default: none]
+- `--genotypic_file` - path to a file with genotypic cohort data. Currently is tailored to gel tiering data file where `participant_id` is second column, first column is called `key` and is dropped. [default: none]
+*Note:* both input files can be either in .tsv or .tsv.gz format, script handles decompression automatically.
 
 #### Optional arguments:
 - `--gene` - specify gene name (abbreviation) to generate a list of all mutations found in genotypic file for this gene (e.g. SHANK3) [default: `false`, meaning no table will be generated]
-- `--phenotypic_file` - path to a file with phenotypic cohort data [default: GEL phenotypic cohort data, fetched from s3 automatically, needs access credentials]
-- `--genotypic_file` path to a file with genotypic cohort data [default: GEL tiering data, fetched from s3 automatically, needs access credentials]
-
