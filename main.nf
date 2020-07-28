@@ -47,9 +47,9 @@ process Filter_genotypic_file {
   file=${genotypic_file} #to pass file name into if condition
   if [[ \${file: -3} == ".gz" ]]
   then \
-    gunzip -k -c ${genotypic_file} | awk -v id=${params.participant_id} ' BEGIN {print} \$2==id {print} ' > ${genotypic_file.simpleName}_filtered.tsv
+    gunzip -k -c ${genotypic_file} | awk -v id=${params.participant_id} ' BEGIN {getline;print} \$2==id {print} ' > ${genotypic_file.simpleName}_filtered.tsv
   else \
-    awk -v id=${params.participant_id} ' BEGIN {print} \$2==id {print}  ' ${genotypic_file} > ${genotypic_file.simpleName}_filtered.tsv
+    awk -v id=${params.participant_id} ' BEGIN {getline;print} \$2==id {print}  ' ${genotypic_file} > ${genotypic_file.simpleName}_filtered.tsv
   fi
 
   """
