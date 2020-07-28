@@ -97,10 +97,11 @@ data <- fread(phenotypic_file_path, h=T, sep ='\t') %>%
 #Add here convert step if needed
 
 ##### Table 2
-tier <- read.table(genotypic_file_path, h=T, sep ='\t', quote = "") %>% select(-c(key))
+#tier <- read.table(genotypic_file_path, h=T, sep ='\t', quote = "") %>% select(-c(key))
 
 # Output participant table
-personal_tier <- tier %>% filter(participant_id == paste(id))
+#personal_tier <- tier %>% filter(participant_id == paste(id))
+personal_tier <- read.table(genotypic_file_path, h=T, sep ='\t', quote = "") %>% select(-c(key))
 # If table is too big (>150 rows) subset to TIER1 and TIER2 only (if there are any) 
 if (nrow(personal_tier) >150 && ("TIER1" %in% personal_tier$tier || "TIER2" %in% personal_tier$tier)) {
   personal_tier <- personal_tier %>% filter(tier %in% c("TIER1", "TIER2") )

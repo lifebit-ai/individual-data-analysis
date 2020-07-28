@@ -30,8 +30,30 @@ Channel
   .set { rmarkdown }
 
 
+/*--------------------------------------------------
+  Filter genotypic file
+---------------------------------------------------*/
+process Filter_genotypic_file {
+  input:
+  file(genotypic_file) from genotypic_file_ch
 
+  output:
+  file "${genotypic_file.simpleName}_filtered.tsv" into filtered_genotypic_file_ch
 
+  script:
+  """
+  # Filtering giant file with awk is much fater than with R
+  # Conditional decompression of the file before passing it to awk
+  file=${genotypic_file} #to pass file name into if condition
+  if [[ \${file: -3} == ".gz" ]]
+  then \
+    gunzip -k -c ${genotypic_file} | awk -v id=${params.participant_id} ' BEGIN {print} \$2==id {print} ' > ${genotypic_file.simpleName}_filtered.tsv
+  else \
+    awk -v id=${params.participant_id} ' BEGIN {print} \$2==id {print}  ' ${genotypic_file} > ${genotypic_file.simpleName}_filtered.tsv
+  fi
+
+  """
+}
 
 
 /*--------------------------------------------------
@@ -43,7 +65,7 @@ process Produce_tables  {
 
   input:
   file(phenotypic_file) from phenotypic_file_ch
-  file(genotypic_file) from genotypic_file_ch
+  file(filtered_genotypic_file) from filtered_genotypic_file_ch
   //file(dictionary_file) from dictionary_file_ch
 
   output:
@@ -52,7 +74,7 @@ process Produce_tables  {
   file("*.{csv,tsv,png}") into (sript_results_ch) */
   script:
   """
-  tactical_solution.R $params.participant_id $params.gene $phenotypic_file $genotypic_file #\$dictionary_file
+  tactical_solution.R $params.participant_id $params.gene $phenotypic_file $filtered_genotypic_file #\$dictionary_file
   """
 }
 
